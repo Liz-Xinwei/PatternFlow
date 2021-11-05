@@ -365,4 +365,31 @@ for i in range(epoch):
 
     time_elapsed = time.time() - since
     print('{:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
+    im = Image.open(x_sort_test[0])
+
+    im1 = im
+    im_n = np.array(im1)
+    im_n_flat = im_n.reshape(-1, 1)
+
+    for j in range(im_n_flat.shape[0]):
+        if im_n_flat[j] != 0:
+            im_n_flat[j] = 255
+
+    s = data_transform(im)
+    pred = model_test(s.unsqueeze(0).cuda()).cpu()
+    pred = F.sigmoid(pred)
+    pred = pred.detach().numpy()
+
+    it = Image.open(x_sort_testL[0])
+    A = np.array(data_transform4(it)) // 255
+    B = pred[0][0]
+
+    intersection = (A * B).sum()
+    union = A.sum() + B.sum() - intersection
+    iou = intersection / union
+    model_test_iou.append(iou)
+    dice = 2 / (1 / iou + 1)
+    model_test_dice.append(dice)
+    print(dice, iou)
+
     n_iter += 1
