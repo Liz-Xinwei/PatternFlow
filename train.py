@@ -48,7 +48,7 @@ print('batch_size = ' + str(batch_size))
 
 valid_size = 0.15
 
-epoch = 15
+epoch = 25
 print('epoch = ' + str(epoch))
 
 random_seed = random.randint(1, 100)
@@ -114,14 +114,12 @@ test_folderL = './ISIC-copy/ISIC2018_Task1_Training_GroundTruth_x2/'
 
 data_transform = torchvision.transforms.Compose([
            torchvision.transforms.Resize((128, 128)),
-         #   torchvision.transforms.CenterCrop(96),
             torchvision.transforms.ToTensor(),
             torchvision.transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
         ])
 
 data_transform2 = torchvision.transforms.Compose([
            torchvision.transforms.Resize((128, 128)),
-         #   torchvision.transforms.CenterCrop(96),
             torchvision.transforms.Grayscale(),
             torchvision.transforms.ToTensor(),
         ])
@@ -212,6 +210,26 @@ except OSError:
     print("Creation of the model directory '%s' failed" % read_model_path)
 else:
     print("Successfully created the model directory '%s' " % read_model_path)
+    
+    
+data_transform3 = torchvision.transforms.Compose([
+           torchvision.transforms.Resize((128, 128)),
+        ])
+data_transform4 = torchvision.transforms.Compose([
+           torchvision.transforms.Resize((128, 128)),
+         #   torchvision.transforms.CenterCrop(96),
+            torchvision.transforms.Grayscale(),
+        ])
+
+
+x_sort_testP = sorted(os.listdir(test_folderP))
+x_sort_testP = [test_folderP + i for i in sorted(os.listdir(test_folderP))]
+
+x_sort_testL = sorted(os.listdir(test_folderL))
+x_sort_testL = [test_folderL + i for i in sorted(os.listdir(test_folderL))]
+
+x_sort_test = [test_folderP + i for i in sorted(os.listdir(test_folderP))]
+
 
 #######################################################
 #Training loop
