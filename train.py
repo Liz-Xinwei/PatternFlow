@@ -315,6 +315,9 @@ for i in range(epoch):
     train_loss = train_loss / len(train_idx)
     valid_loss = valid_loss / len(valid_idx)
 
+    model_train_loss.append(train_loss)
+    model_valid_loss.append(valid_loss)
+
     if (i+1) % 1 == 0:
         print('Epoch: {}/{} \tTraining Loss: {:.6f} \tValidation Loss: {:.6f}'.format(i + 1, epoch, train_loss,
                                                                                       valid_loss))
