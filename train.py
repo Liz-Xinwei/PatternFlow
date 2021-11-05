@@ -234,6 +234,10 @@ x_sort_test = [test_folderP + i for i in sorted(os.listdir(test_folderP))]
 #######################################################
 #Training loop
 #######################################################
+model_train_loss = []
+model_valid_loss = []
+model_test_dice = []
+model_test_iou = []
 
 for i in range(epoch):
 
